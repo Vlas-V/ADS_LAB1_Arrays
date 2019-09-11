@@ -152,6 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ADS_LAB1_Arrays.cpp" />
+    <ClCompile Include="database.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="database.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

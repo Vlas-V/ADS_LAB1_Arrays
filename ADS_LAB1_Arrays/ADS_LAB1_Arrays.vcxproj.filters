@@ -18,5 +18,13 @@
     <ClCompile Include="ADS_LAB1_Arrays.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="database.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
