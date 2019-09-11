@@ -19,23 +19,22 @@ struct Employer
 
 
 
-void add_element(Employer employers_DB[],
-				int size_DB,
+void add_element(Employer** employers_DB,
+				int* capacity,
 				int* employers_count,
 				Employer e);
 
 
 void DB_info(Employer employers_DB[],
-			int size_DB, // do I need this parameter? 
 			int employers_count);
 
-int get_employer_index_inDB(Employer employers_DB[],
-							int size_DB,
+int get_employer_index_inDB(Employer* employers_DB,
 							int employers_count,
 							Employer e);
 
+
 void remove_employer(Employer employers_DB[],
-					int size_DB,
+					int capacity,
 					int* employers_count,
 					Employer e);
 

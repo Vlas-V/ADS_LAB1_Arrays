@@ -32,26 +32,44 @@ bool Employer::operator == (const Employer& e)
 		return false;
 }
 
-void add_element(Employer employers_DB[],
-	int size_DB,
-	int* employers_count,
-	Employer e)
+void add_element(Employer** employers_DB,
+				int* capacity,
+				int* employers_count,
+				Employer e)
 {
-	// Throw an exception here?
-	if (*employers_count >= size_DB)
+
+	// Check if there's still enough space
+	if (*employers_count < *capacity)
 	{
-		std::cout << "Not enough space in the database to add an element.";
-		return;
+		//*employers_DB[*employers_count] = e; // the paranticies?? 
+		*(*employers_DB + *employers_count) = e;
+	}
+	else // Resize the array othewise
+	{
+		Employer* new_employer_DB = new Employer[(*employers_count) + 1];
+
+		for (int i = 0; i < *employers_count; i++)
+		{
+			new_employer_DB[i] = (*employers_DB)[i];
+		}
+
+		new_employer_DB[*employers_count] = e;
+		
+		delete[] *employers_DB;
+		*employers_DB = new_employer_DB;
+		
+		(*capacity)++;
+
 	}
 
-	employers_DB[*employers_count] = e;
+	//employers_DB[*employers_count] = e;
 	(*employers_count)++;
+
 }
 
 
 void DB_info(Employer employers_DB[],
-	int size_DB, // do I need this parameter? 
-	int employers_count)
+			int employers_count)
 {
 	if (employers_count == 0)
 	{
@@ -67,16 +85,10 @@ void DB_info(Employer employers_DB[],
 }
 
 
-int get_employer_index_inDB(Employer employers_DB[],
-							int size_DB,
+int get_employer_index_inDB(Employer *employers_DB,
 							int employers_count,
 							Employer e)
 {
-	if (employers_count >= size_DB)
-	{
-		std::cout << "Not enough space in the database to add an element." << std::endl;
-		return -2;
-	}
 
 	for (int i = 0; i < employers_count; i++) if (employers_DB[i] == e) return i;
 
@@ -85,15 +97,15 @@ int get_employer_index_inDB(Employer employers_DB[],
 
 
 void remove_employer(Employer employers_DB[],
-	int size_DB,
-	int* employers_count,
-	Employer e)
+					int capacity,
+					int* employers_count,
+					Employer e)
 {
 
 	// What should I do? 
 
 	// First let's find the employers index 
-	int index = get_employer_index_inDB(employers_DB, size_DB, *employers_count, e);
+	int index = get_employer_index_inDB(employers_DB, *employers_count, e);
 
 	// The employer hasn't been found 
 	if (index < 0)
@@ -121,7 +133,7 @@ void replace_employer(Employer *employers_DB,
 						Employer old_employer,
 						Employer new_employer)
 {
-	int index_of_old_employer = get_employer_index_inDB(employers_DB, size_DB, employers_count, old_employer);
+	int index_of_old_employer = get_employer_index_inDB(employers_DB, employers_count, old_employer);
 
 	if (index_of_old_employer < 0)
 	{
